@@ -1,15 +1,12 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:16-alpine' // or any image that has Docker
-            args '-v /var/run/docker.sock:/var/run/docker.sock' // to access the host's Docker
-        }
+  agent {
+    docker { image 'node:16-alpine' }
+  }
+  stages {
+    stage('Test') {
+      steps {
+        sh 'node --version'
+      }
     }
-    stages {
-        stage('Test Docker') {
-            steps {
-                sh '/usr/bin/docker --version' // Test if Docker is available
-            }
-        }
-    }
+  }
 }

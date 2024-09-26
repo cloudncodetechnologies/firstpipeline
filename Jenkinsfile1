@@ -1,0 +1,12 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Github') {
+            steps {
+                git branch: 'main', credentialsId: '1b256f95-2b17-4dfa-b6a6-9be1b3d86afd', url: 'https://github.com/cloudncodetechnologies/firstpipeline.git'
+                sh 'cat /var/lib/jenkins/workspace/First\\ pipeline/Jenkinsfile'
+            }
+        }
+    }
+}

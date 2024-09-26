@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Test Docker') {
             steps {
-                sh 'docker --version' // Test if Docker is available
+                sh '/usr/bin/docker --version' // Test if Docker is available
             }
         }
     }

@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.0'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+    agent any
     environment {
         // Replace 'sonar' with your SonarQube server name in Jenkins
         SONARQUBE_SERVER = 'Sonarqube-test'
@@ -19,11 +14,23 @@ pipeline {
             }
         }
         stage('Build') {
+            agent {
+              docker {
+                image 'maven:3.9.0'
+                args '-v /root/.m2:/root/.m2'
+              }
+            }
             steps {
                 sh 'mvn -B -DskipTests -Denforcer.skip=true  clean package'
             }
         }
         stage('Deliver') {
+            agent {
+              docker {
+                image 'maven:3.9.0'
+                args '-v /root/.m2:/root/.m2'
+              }
+            }
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }

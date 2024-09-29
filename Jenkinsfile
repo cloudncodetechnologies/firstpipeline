@@ -35,5 +35,38 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
+        stage('SonarQube Scan') {
+            agent {
+              docker {
+                image 'maven:3.9.0'
+                args '-v /root/.m2:/root/.m2'
+              }
+            }
+            steps {
+                script {
+                    // Perform the SonarQube analysis
+                    withSonarQubeEnv(SONARQUBE_SERVER) {
+                        sh 'mvn sonar:sonar -Dsonar.login=$SONAR_LOGIN'
+                    }
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            agent {
+              docker {
+                image 'maven:3.9.0'
+                args '-v /root/.m2:/root/.m2'
+              }
+            }
+            steps {
+                script {
+                    // Wait for SonarQube quality gate result
+                    timeout(time: 5, unit: 'MINUTES') {
+                        waitForQualityGate abortPipeline: true
+                    }
+                }
+            }
+        }
     }
 }

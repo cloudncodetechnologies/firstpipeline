@@ -4,7 +4,7 @@ pipeline {
         // Replace 'sonar' with your SonarQube server name in Jenkins
         SONARQUBE_SERVER = 'Sonarqube-test'
         // Optionally specify additional SonarQube parameters (like project key, token, etc.)
-        SONAR_LOGIN = credentials('e75d60d2-9f8f-4cbe-bb70-aba76824cdc1	')  // Use credentials from Jenkins
+        SONAR_LOGIN = credentials('50370b0b-c66d-4dce-b126-c8440e758ee1')  // Use credentials from Jenkins
     }
     stages {
         stage('Checkout Github') {

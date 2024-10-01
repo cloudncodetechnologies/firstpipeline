@@ -3,7 +3,7 @@ pipeline {
         // Use a Docker Maven agent for the build
         docker {
             image 'maven:3.8.4-openjdk-17'
-            args '-v /root/.m2:/root/.m2'  // Bind the local Maven repository to speed up builds
+            args '-v /root/.m2:/root/.m2'  // Bind the local Maven repository to speed up builds new
         }
     }
 
